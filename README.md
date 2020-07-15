@@ -30,3 +30,12 @@ For the script to work at startup, I edited the `/etc/rc.local` file and added t
 
 ``/home/patch/midi_cmd_server.py &``
 
+# TouchOSC
+
+In TouchOSC I've simply used a grid of push-buttons to trigger a MIDI CC on Channel 16 (for AMSynth), Number (for the index to the preset) and Range of 0 - 127 (127  is sent on press) and I've only ticked 'Send on press'. Although you could set it up to any type of message I believe and as long as the script is looking for the same info, it should work.
+
+# Assign other pedal presets
+
+For each pedal that you would like to be able to change the preset for you need to find out how the presets are set. In a browser, load your pedalboard on `http://patchbox.local` and open the Dev tools. In the 'Sources' tab (in Chrome) open the `js/desktop.js?v=....` file and search for both *pluginPresetLoad:* and *pluginParameterChange:*. Place break-points in both these functions and then open your pedal settings and select a new preset to load. One of the break-points should be hit.
+
+Make a note of the values being sent and use those values for either a GET (*pluginPresetLoad:*) or the websocket (*pluginParameterChange:*).
